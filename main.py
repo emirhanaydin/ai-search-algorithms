@@ -1,6 +1,7 @@
 from bfs import BFS
 from dfs import DFS
 from graph import GraphBuilder
+from graph_searcher import GraphSearcher
 from ucs import UCS
 
 
@@ -26,17 +27,22 @@ def main():
     builder.vertex("R").edge("E", 3).edge("F", 4)
     graph = builder.build()
 
+    def search_and_print(searcher: GraphSearcher):
+        result, cost = searcher.search("Q", start="B")
+        print(result)
+        print(searcher.get_path(), cost)
+
     bfs = BFS(graph=graph)
-    result, _ = bfs.search("Q", start="B")
-    print(result)
+    search_and_print(bfs)
+    print()
 
     dfs = DFS(graph=graph)
-    result, _ = dfs.search("Q", start="B")
-    print(result)
+    search_and_print(dfs)
+    print()
 
     ucs = UCS(graph=graph)
-    result, cost = ucs.search("Q", start="B")
-    print(result, cost)
+    search_and_print(ucs)
+    print()
 
 
 if __name__ == '__main__':
